@@ -26,6 +26,7 @@ products = {
     },
 }
 
+# RUN PORT TO SOMETHING OTHER THAN 5000
 app = Flask(__name__)
 stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 
@@ -75,6 +76,7 @@ def cancel():
 def new_event():
     event = None
     payload = request.data
+    #  All webhook invocations from Stripe include a cryptographic signature, which needs to be verified before the data is trusted
     signature = request.headers['STRIPE_SIGNATURE']
 
     try:
